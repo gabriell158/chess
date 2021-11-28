@@ -1,4 +1,5 @@
 import socket, sys
+from time import sleep
 from chess import *
 
 SIZE = 100000
@@ -35,26 +36,52 @@ while True:
             clientSocket.send(message.encode())
             clientResponse = clientSocket.recv(SIZE).decode()
             if not clientResponse: break
-        message = blackOrWhite(clientResponse)
         clientColor, serverColor = assignColors(clientResponse)
         clientPieces, serverPieces = assignPieces(clientColor)
         matrix = createTable(clientColor)
         table = renderTable(matrix)
+        if clientResponse == "preto":
+            print('O cliente está jogando com as peças pretas')
+            print('O servidor jogará com as peças brancas')
+        elif clientResponse == "branco":
+            print('O cliente está jogando com as peças brancas')
+            print('O servidor jogará com as peças pretas')
+        sleep(3)
         if clientColor == "preto":
-            print(table)
-            matrix = serverPlay(matrix, serverPieces)
-            table = renderTable(matrix)
-        message = message + table
-        clientSocket.send(message.encode())
-        clientResponse = clientSocket.recv(SIZE).decode()
-        if not clientResponse: break
+            table = renderTable(matrix, True)
+            while True:
+                print(table)
+                play = input("Sua vez : ")
+                matrix, message, valid = turn(matrix, serverPieces, play)
+                table = renderTable(matrix)
+                if valid:
+                    break
+                print(message)
+        message = table + '\n' + blackOrWhite(clientResponse)
         while True:
-            if clientResponse == 'preto' or clientResponse == 'branco':
-                break
-            message = chooseYourColor()
             clientSocket.send(message.encode())
+            print("O cliente está jogando...")
             clientResponse = clientSocket.recv(SIZE).decode()
             if not clientResponse: break
+            # client
+            while True:
+                matrix, message, valid = turn(matrix, clientPieces, clientResponse, True)
+                if valid:
+                    break
+                clientSocket.send(message.encode())
+                clientResponse = clientSocket.recv(SIZE).decode()
+                if not clientResponse: break
+            table = renderTable(matrix, True)
+            # server
+            while True:
+                print(table)
+                print(message)
+                play = input("Sua vez : ")
+                matrix, message, valid = turn(matrix, serverPieces, play)
+                if valid:
+                    break
+            table = renderTable(matrix)
+            message = table + '\nSua vez'
         clientSocket.send("legal fera".encode())
     print('Conexão finalizada com o cliente  ', clientAddress)
     clientSocket.close()

@@ -1,5 +1,5 @@
 from math import sqrt
-
+from typing import Union
 # peças brancas
 WHITE_QUEEN = 1
 WHITE_BISHOP = 2
@@ -23,24 +23,18 @@ def welcome():
   return "Bem vindo ao joguinho de xadrez!\nVocê quer jogar comigo?\nDigite 'jogar' para começar ou 'sair' a qualquer momento para sair.\nJogar?"
 
 def toPlayOrNotToPlay():
-  return "Digite uma opção válida! \nDigite 'jogar' para começar ou 'sair' a qualquer momento para sair."
+  return "Digite uma opção válida!\nDigite 'jogar' para começar ou 'sair' a qualquer momento para sair."
 
 def weArePlaying():
   return "Oba! Vamos jogar!\nPara fazer uma jogada, digite a origem e o destina da peça que deseja mover separado por vírgula.\n(e.g. H1,H4)\nQual cor você quer?\nDigite 'preto' ou 'branco.'"
 
 def chooseYourColor():
-  return "Digite uma opção válida! \nDigite 'preto' ou 'branco'."
+  return "Digite uma opção válida!\nDigite 'preto' ou 'branco'."
 
 def blackOrWhite(message: str):
   if message == "preto":
-    print('O cliente está jogando com as peças pretas')
-    print('O servidor jogará com as peças brancas')
     return "Já começei!"
-  if message == "branco":
-    print('O cliente está jogando com as peças brancas')
-    print('O servidor jogará com as peças pretas')
-    return "Você começa!"
-  return "Não entendi..."
+  return "Você começa!"
 
 def assignColors(color: str):
   if color == 'preto':
@@ -128,157 +122,64 @@ def createTable(color: str):
   if (color == 'preto'):
     board = [
       [
-        WHITE_ROOK,
-        WHITE_KNIGHT,
-        WHITE_BISHOP,
-        WHITE_QUEEN,
-        WHITE_KING,
-        WHITE_BISHOP,
-        WHITE_KNIGHT,
-        WHITE_ROOK
+        WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN,
+        WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK
       ],
       [
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN
+        WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN,
+        WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN
       ],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
       [
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN
+        BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN,
+        BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN
       ],
       [
-        BLACK_ROOK,
-        BLACK_KNIGHT,
-        BLACK_BISHOP,
-        BLACK_QUEEN,
-        BLACK_KING,
-        BLACK_BISHOP,
-        BLACK_KNIGHT,
-        BLACK_ROOK
+        BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN,
+        BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK
       ],
     ]
   else:
     board = [
       [
-        BLACK_ROOK,
-        BLACK_KNIGHT,
-        BLACK_BISHOP,
-        BLACK_QUEEN,
-        BLACK_KING,
-        BLACK_BISHOP,
-        BLACK_KNIGHT,
-        BLACK_ROOK
+        BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN,
+        BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK
       ],
       [
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN,
-        BLACK_PAWN
+        BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN,
+        BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN
       ],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
-      [0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
       [
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN,
-        WHITE_PAWN
+        WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN,
+        WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN
       ],
       [
-        WHITE_ROOK,
-        WHITE_KNIGHT,
-        WHITE_BISHOP,
-        WHITE_QUEEN,
-        WHITE_KING,
-        WHITE_BISHOP,
-        WHITE_KNIGHT,
-        WHITE_ROOK
+        WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN,
+        WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK
       ],
     ]
   return board
 
 def renderTable(matrix: 'list[list[int]]', reverse: bool = False):
   table = '┌───┬───┬───┬───┬───┬───┬───┬───┐'
+  # if reverse:
+  #   for j in range(len(matrix)):
+  #     table += '\n' + str(j + 1)
+  #     for i in range(8, 0, -1):
+  #       table += ' ' + convertPiece(matrix[j][8 - i]) + ' │'
+  #     if j == 7:
+  #       break
+  #     table += '\n├───┼───┼───┼───┼───┼───┼───┼───┤'
+  #   table += '\n└─A─┴─B─┴─C─┴─D─┴─E─┴─F─┴─G─┴─H─┘'
+  #   return renderReference() + '\n' + table
+  # else:
   for j in range(len(matrix), 0, -1):
     table += '\n' + str(j)
     for i in range(0, 8):
@@ -319,76 +220,76 @@ def convertPiece(code: int):
     return '\u265F'
   return ' '
 
-def getMove():
-  while True:
-    play = input("Sua jogada: ")
-    try:
-      play = play.replace(" ", "")
-      source, destination = play.split(',')
-      if len(source) == 2 and len(destination) == 2:
-        if (
-          int(source[1]) == 1 or int(source[1]) == 2 or int(source[1]) == 3
-          or int(source[1]) == 4 or int(source[1]) == 5 or int(source[1]) == 6
-          or int(source[1]) == 7 or int(source[1]) == 8
-        ) and (
-          int(destination[1]) == 1 or int(destination[1]) == 2
-          or int(destination[1]) == 3 or int(destination[1]) == 4
-          or int(destination[1]) == 5 or int(destination[1]) == 6
-          or int(destination[1]) == 7 or int(destination[1]) == 8
-        ) and (
-          source[0].lower() == 'a' or source[0] == 'b'
-          or source[0].lower() == 'c' or source[0].lower() == 'd'
-          or source[0].lower() == 'e' or source[0].lower() == 'f'
-          or source[0].lower() == 'g' or source[0].lower() == 'h'
-        ) and (
-          destination[0].lower() == 'a' or destination[0] == 'b'
-          or destination[0].lower() == 'c' or destination[0].lower() == 'd'
-          or destination[0].lower() == 'e' or destination[0].lower() == 'f'
-          or destination[0].lower() == 'g' or destination[0].lower() == 'h'
-        ):
-          break
-        else:
-          print(howToPlay())
+def getMove(play: str):
+  message = "Sua vez"
+  try:
+    play = play.replace(" ", "")
+    source, destination = play.split(',')
+    if len(source) == 2 and len(destination) == 2:
+      if (
+        int(source[1]) == 1 or int(source[1]) == 2 or int(source[1]) == 3
+        or int(source[1]) == 4 or int(source[1]) == 5 or int(source[1]) == 6
+        or int(source[1]) == 7 or int(source[1]) == 8
+      ) and (
+        int(destination[1]) == 1 or int(destination[1]) == 2
+        or int(destination[1]) == 3 or int(destination[1]) == 4
+        or int(destination[1]) == 5 or int(destination[1]) == 6
+        or int(destination[1]) == 7 or int(destination[1]) == 8
+      ) and (
+        source[0].lower() == 'a' or source[0] == 'b'
+        or source[0].lower() == 'c' or source[0].lower() == 'd'
+        or source[0].lower() == 'e' or source[0].lower() == 'f'
+        or source[0].lower() == 'g' or source[0].lower() == 'h'
+      ) and (
+        destination[0].lower() == 'a' or destination[0] == 'b'
+        or destination[0].lower() == 'c' or destination[0].lower() == 'd'
+        or destination[0].lower() == 'e' or destination[0].lower() == 'f'
+        or destination[0].lower() == 'g' or destination[0].lower() == 'h'
+      ):
+        return source, destination, message, True
       else:
-        print(howToPlay())
-    except:
-      print(howToPlay())
-  return source, destination
-
-def serverPlay(matrix: 'list[list[int]]', pieces: 'list[int]'):
-  while True:
-    source, destination = getMove()
-    sourceRow, sourceCollumn = getCoordinates(source)
-    piece = matrix[sourceRow][sourceCollumn]
-    if piece != 0:
-      destinationRow, destinationCollumn = getCoordinates(destination)
-      if validateOwnership(piece, pieces):
-        if validateMove(
-          piece,
-          [sourceRow,
-           sourceCollumn],
-          [destinationRow,
-           destinationCollumn]
-        ):
-          if validatePath(
-            matrix,
-            [sourceRow,
-             sourceCollumn],
-            [destinationRow,
-             destinationCollumn],
-            pieces,
-            piece
-          ):
-            matrix[sourceRow][sourceCollumn] = 0
-            matrix[destinationRow][destinationCollumn] = piece
-            break
-        else:
-          print("Você não pode mover essa peça ali!")
-      else:
-        print("Você não pode mover as peças do adversário! Escolha uma peça sua!")
+        message = howToPlay()
     else:
-      print("Não há nada nesse lugar! Escolha uma casa válida!")
-  return matrix
+      message = howToPlay()
+  except:
+    message = howToPlay()
+  return 'invalid', 'invalid', message, False
+
+def turn(matrix: 'list[list[int]]', pieces: 'list[int]', play: str, client: bool = False):
+  source, destination, message, valid = getMove(play)
+  if not valid:
+    return matrix, message, False
+  sourceRow, sourceCollumn = getCoordinates(source)
+  piece = matrix[sourceRow][sourceCollumn]
+  if piece != 0:
+    destinationRow, destinationCollumn = getCoordinates(destination)
+    if validateOwnership(piece, pieces):
+      if validateMove(
+        piece,
+        [sourceRow, sourceCollumn],
+        [destinationRow, destinationCollumn],
+        client
+      ):
+        message = validatePath(
+          matrix,
+          [sourceRow, sourceCollumn],
+          [destinationRow, destinationCollumn],
+          pieces,
+          piece,
+          client
+        )
+        if message != True:
+          return matrix, str(message), False
+        matrix[sourceRow][sourceCollumn] = 0
+        matrix[destinationRow][destinationCollumn] = piece
+        return matrix, str(message), True
+      else:
+        message = "Você não pode mover essa peça ali!"
+    else:
+      message = "Você não pode mover as peças do adversário! Escolha uma peça sua!"
+  else:
+    message = "Não há nada nesse lugar! Escolha uma casa válida!"
+  return matrix, message, False
 
 def getCoordinates(position: str):
   if int(position[1]) == 1:
@@ -480,189 +381,161 @@ def validatePath(
   destination: 'list[int]',
   pieces: 'list[int]',
   piece: int,
-  client = False
-):
+  client: bool = False
+) -> Union[bool,str]:
   x = destination[1] - source[1]
   y = source[0] - destination[0]
   move = round(sqrt(x * x + y * y), 2)
   if piece == WHITE_KING or piece == BLACK_KING:
     if matrix[destination[0]][destination[1]] in pieces:
-      print("Você não pode comer suas próprias peças!")
-      return False
+      return "Você não pode comer suas próprias peças!"
     return True
-  if piece == WHITE_KNIGHT or piece == BLACK_KNIGHT:
+  elif piece == WHITE_KNIGHT or piece == BLACK_KNIGHT:
     if matrix[destination[0]][destination[1]] in pieces:
-      print("Você não pode comer suas próprias peças!")
-      return False
+      return "Você não pode comer suas próprias peças!"
     return True
-  if piece == WHITE_ROOK or piece == BLACK_ROOK:
+  elif piece == WHITE_ROOK or piece == BLACK_ROOK:
     distance = round(move / 1.00)
     if distance == 1:
       if matrix[destination[0]][destination[1]] in pieces:
-        print("Você não pode comer suas próprias peças!")
-        return False
+        return "Você não pode comer suas próprias peças!"
       return True
     if x == 0:
       if y > 0:
         source[0] -= 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       if y < 0:
         source[0] += 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
-      return True
-    if y == 0:
+    elif y == 0:
       if x > 0:
         source[1] += 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       if x < 0:
         source[1] -= 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       return True
     return True
-  if piece == WHITE_BISHOP or piece == BLACK_BISHOP:
+  elif piece == WHITE_BISHOP or piece == BLACK_BISHOP:
     distance = round(move / 1.41)
     if distance == 1:
       if matrix[destination[0]][destination[1]] in pieces:
-        print("Você não pode comer suas próprias peças!")
-        return False
+        return "Você não pode comer suas próprias peças!"
       return True
     if x > 0 and y > 0:
       source[1] += 1
       source[0] -= 1
       if matrix[source[0]][source[1]]:
-        print("Tem uma peça bloquendo o caminho!")
-        return False
+        return "Tem uma peça bloquendo o caminho!"
       return validatePath(matrix, source, destination, pieces, piece)
     if x < 0 and y > 0:
       source[1] -= 1
       source[0] -= 1
       if matrix[source[0]][source[1]]:
-        print("Tem uma peça bloquendo o caminho!")
-        return False
+        return "Tem uma peça bloquendo o caminho!"
       return validatePath(matrix, source, destination, pieces, piece)
     if x < 0 and y < 0:
       source[1] -= 1
       source[0] += 1
       if matrix[source[0]][source[1]]:
-        print("Tem uma peça bloquendo o caminho!")
-        return False
+        return "Tem uma peça bloquendo o caminho!"
       return validatePath(matrix, source, destination, pieces, piece)
     if x > 0 and y < 0:
       source[1] += 1
       source[0] += 1
       if matrix[source[0]][source[1]]:
-        print("Tem uma peça bloquendo o caminho!")
-        return False
+        return "Tem uma peça bloquendo o caminho!"
       return validatePath(matrix, source, destination, pieces, piece)
     return True
-  if piece == WHITE_QUEEN or piece == BLACK_QUEEN:
+  elif piece == WHITE_QUEEN or piece == BLACK_QUEEN:
     if round(move % 1.00) == 0:
       distance = round(move / 1.00)
       if distance == 1:
         if matrix[destination[0]][destination[1]] in pieces:
-          print("Você não pode comer suas próprias peças!")
-          return False
+          return "Você não pode comer suas próprias peças!"
         return True
       if x == 0:
         if y > 0:
           source[0] -= 1
           if matrix[source[0]][source[1]]:
-            print("Tem uma peça bloquendo o caminho!")
-            return False
+            return "Tem uma peça bloquendo o caminho!"
           return validatePath(matrix, source, destination, pieces, piece)
         if y < 0:
           source[0] += 1
           if matrix[source[0]][source[1]]:
-            print("Tem uma peça bloquendo o caminho!")
-            return False
+            return "Tem uma peça bloquendo o caminho!"
           return validatePath(matrix, source, destination, pieces, piece)
         return True
       if y == 0:
         if x > 0:
           source[1] += 1
           if matrix[source[0]][source[1]]:
-            print("Tem uma peça bloquendo o caminho!")
-            return False
+            return "Tem uma peça bloquendo o caminho!"
           return validatePath(matrix, source, destination, pieces, piece)
         if x < 0:
           source[1] -= 1
           if matrix[source[0]][source[1]]:
-            print("Tem uma peça bloquendo o caminho!")
-            return False
+            return "Tem uma peça bloquendo o caminho!"
           return validatePath(matrix, source, destination, pieces, piece)
         return True
     if round(move % 1.41) == 0:
       distance = round(move / 1.41)
       if distance == 1:
         if matrix[destination[0]][destination[1]] in pieces:
-          print("Você não pode comer suas próprias peças!")
-          return False
+          return "Você não pode comer suas próprias peças!"
         return True
       if x > 0 and y > 0:
         source[1] += 1
         source[0] -= 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       if x < 0 and y > 0:
         source[1] -= 1
         source[0] -= 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       if x < 0 and y < 0:
         source[1] -= 1
         source[0] += 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       if x > 0 and y < 0:
         source[1] += 1
         source[0] += 1
         if matrix[source[0]][source[1]]:
-          print("Tem uma peça bloquendo o caminho!")
-          return False
+          return "Tem uma peça bloquendo o caminho!"
         return validatePath(matrix, source, destination, pieces, piece)
       return True
-    return False
-  if piece == WHITE_PAWN or piece == BLACK_PAWN:
+  elif piece == WHITE_PAWN or piece == BLACK_PAWN:
     if x == 0:
-      print(round(move / 1.00))
       if round(move / 1.00) == 1:
         if matrix[destination[0]][destination[1]] in pieces:
-          print("Você não pode comer suas próprias peças!")
-          return False
+          return "Você não pode comer suas próprias peças!"
         return True
       elif round(move / 1.00) == 2:
-        if client and source[0] == 7:
+        if client and source[0] == 6:
           source[0] -= 1
           return validatePath(matrix, source, destination, pieces, piece)
         elif (not client) and source[0] == 1:
           source[0] += 1
           return validatePath(matrix, source, destination, pieces, piece)
-        print("Você só pode andar duas casas no primeiro movimento!")
-        return False
-      return False
+        return "Você só pode andar duas casas no primeiro movimento!"
     if matrix[destination[0]][destination[1]] in pieces:
-      print("Você não pode comer suas próprias peças!")
-      return False
+      return "Você não pode comer suas próprias peças!"
     if matrix[destination[0]][destination[1]] == 0:
-      print("Você só pode mover ali se tiver alguma peça do adversário!")
-      return False
+      return "Você só pode mover ali se tiver alguma peça do adversário!"
     return True
-  return False
+  return "error"
+def promotion():
+  return
