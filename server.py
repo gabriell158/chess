@@ -52,7 +52,7 @@ while True:
             while True:
                 print(table)
                 play = input("Sua vez : ")
-                matrix, message, valid = turn(matrix, serverPieces, play)
+                matrix, message, valid = turn(matrix, serverPieces, clientPieces, play)
                 table = renderTable(matrix)
                 if valid:
                     break
@@ -66,7 +66,7 @@ while True:
             if not clientResponse: break
             # client
             while True:
-                matrix, message, valid = turn(matrix, clientPieces, clientResponse, True)
+                matrix, message, valid = turn(matrix, clientPieces, serverPieces, clientResponse, True)
                 if valid:
                     break
                 clientSocket.send(message.encode())
@@ -81,7 +81,7 @@ while True:
                 print(table)
                 print(message)
                 play = input("Sua vez : ")
-                matrix, message, valid = turn(matrix, serverPieces, play)
+                matrix, message, valid = turn(matrix, serverPieces, clientPieces, play)
                 if valid:
                     break
             winner = theKingIsDead(clientPieces,serverPieces)
