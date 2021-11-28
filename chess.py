@@ -537,5 +537,13 @@ def validatePath(
       return "Você só pode mover ali se tiver alguma peça do adversário!"
     return True
   return "error"
+
+def theKingIsDead(clientPieces: 'list[int]', serverPieces: 'list[int]'):
+  if WHITE_KNIGHT in clientPieces or BLACK_KING in clientPieces:
+    return "client"
+  if WHITE_KNIGHT in serverPieces or BLACK_KING in serverPieces:
+    return "server"
+  return False
+
 def promotion():
   return

@@ -58,6 +58,7 @@ while True:
                     break
                 print(message)
         message = table + '\n' + blackOrWhite(clientResponse)
+        winner = False
         while True:
             clientSocket.send(message.encode())
             print("O cliente está jogando...")
@@ -71,6 +72,9 @@ while True:
                 clientSocket.send(message.encode())
                 clientResponse = clientSocket.recv(SIZE).decode()
                 if not clientResponse: break
+            winner = theKingIsDead(clientPieces,serverPieces)
+            if winner:
+                break
             table = renderTable(matrix, True)
             # server
             while True:
@@ -80,9 +84,16 @@ while True:
                 matrix, message, valid = turn(matrix, serverPieces, play)
                 if valid:
                     break
+            winner = theKingIsDead(clientPieces,serverPieces)
+            if winner:
+                break
             table = renderTable(matrix)
             message = table + '\nSua vez'
-        clientSocket.send("legal fera".encode())
+        if winner == "client":
+            message = "Parabéns! Você venceu!\nJogar novamente?"
+        else:
+            message = "Que pena! Você perdeu!\nJogar novamente?"
+        clientSocket.send(message.encode())
     print('Conexão finalizada com o cliente  ', clientAddress)
     clientSocket.close()
     sys.exit(0)
